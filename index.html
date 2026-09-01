@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Assignment Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>Student Assignment Tracker</h1>
+      <p>Organize your coursework and stay ahead of your deadlines.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section aria-labelledby="summary-heading">
+      <h2 id="summary-heading">Dashboard Summary</h2>
+
+      <div class="summary-grid">
+        <article class="summary-card">
+          <h3>Pending</h3>
+          <p id="pending-count">0</p>
+        </article>
+
+        <article class="summary-card">
+          <h3>Overdue</h3>
+          <p id="overdue-count">0</p>
+        </article>
+
+        <article class="summary-card">
+          <h3>Completed</h3>
+          <p id="completed-count">0</p>
+        </article>
+      </div>
+    </section>
+
+    <p id="feedback" role="status" aria-live="polite"></p>
+
+    <section class="form-section" aria-labelledby="form-heading">
+      <h2 id="form-heading">Add Assignment</h2>
+
+      <form id="assignment-form">
+        <input type="hidden" id="assignment-id">
+
+        <div class="form-group">
+          <label for="title">Assignment Title</label>
+          <input type="text" id="title" name="title" required>
+        </div>
+
+        <div class="form-group">
+          <label for="course">Course Name</label>
+          <input type="text" id="course" name="course" required>
+        </div>
+
+        <div class="form-group">
+          <label for="due-date">Due Date</label>
+          <input type="date" id="due-date" name="due-date" required>
+        </div>
+
+        <div class="form-group">
+          <label for="priority">Priority</label>
+          <select id="priority" name="priority" required>
+            <option value="Low">Low</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" id="submit-button">Save Assignment</button>
+          <button
+            type="button"
+            id="cancel-button"
+            class="secondary-button"
+            hidden
+          >
+            Cancel Edit
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <section class="filter-section" aria-labelledby="filter-heading">
+      <h2 id="filter-heading">Filter Assignments</h2>
+
+      <div class="filter-grid">
+        <div class="form-group">
+          <label for="course-filter">Course</label>
+          <select id="course-filter">
+            <option value="">All Courses</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="status-filter">Status</label>
+          <select id="status-filter">
+            <option value="all">All Assignments</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+            <option value="overdue">Overdue</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="assignments-heading">
+      <h2 id="assignments-heading">Assignments</h2>
+
+      <p id="empty-state" class="empty-state">
+        No assignments have been added yet. Add your first assignment above.
+      </p>
+
+      <div id="assignment-list" class="assignment-list"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Student Assignment Tracker | Michael Currie</p>
+    </div>
+  </footer>
+</body>
+</html>

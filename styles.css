@@ -1,0 +1,273 @@
+:root {
+  --primary-color: #2563eb;
+  --primary-dark: #1d4ed8;
+  --background-color: #f3f4f6;
+  --surface-color: #ffffff;
+  --text-color: #1f2937;
+  --muted-color: #4b5563;
+  --border-color: #d1d5db;
+  --danger-color: #b91c1c;
+  --success-color: #15803d;
+  --warning-color: #b45309;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  color: var(--text-color);
+  background: var(--background-color);
+}
+
+.container {
+  width: min(100% - 2rem, 1100px);
+  margin: 0 auto;
+}
+
+.site-header {
+  padding: 3rem 0;
+  color: white;
+  background: var(--primary-color);
+}
+
+.site-header h1 {
+  margin: 0 0 0.5rem;
+}
+
+.site-header p {
+  margin: 0;
+}
+
+main {
+  padding: 2rem 0;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.summary-card,
+.form-section,
+.filter-section,
+.assignment-card {
+  padding: 1.25rem;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 8%);
+}
+
+.summary-card h3,
+.summary-card p {
+  margin: 0;
+}
+
+.summary-card p {
+  margin-top: 0.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+#overdue-count {
+  color: var(--danger-color);
+}
+
+#completed-count {
+  color: var(--success-color);
+}
+
+#feedback:empty {
+  display: none;
+}
+
+#feedback {
+  padding: 0.75rem 1rem;
+  background: #dbeafe;
+  border-radius: 0.4rem;
+}
+
+form,
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+label {
+  font-weight: bold;
+}
+
+input,
+select,
+button {
+  min-height: 2.75rem;
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+  border-radius: 0.4rem;
+}
+
+input,
+select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--border-color);
+  background: white;
+  color: var(--text-color);
+}
+
+button {
+  border: 0;
+  color: white;
+  background: var(--primary-color);
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--primary-dark);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid #1e40af;
+  outline-offset: 3px;
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.secondary-button {
+  color: var(--text-color);
+  background: #e5e7eb;
+}
+
+.secondary-button:hover {
+  background: #d1d5db;
+}
+
+.assignment-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.assignment-card {
+  border-left: 0.4rem solid var(--primary-color);
+  overflow-wrap: anywhere;
+}
+
+.assignment-card.completed {
+  border-left-color: var(--success-color);
+}
+
+.assignment-card.overdue {
+  border-left-color: var(--danger-color);
+}
+
+.assignment-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.assignment-card p {
+  margin: 0.35rem 0;
+}
+
+.assignment-meta {
+  color: var(--muted-color);
+}
+
+.assignment-status {
+  font-weight: bold;
+}
+
+.status-overdue {
+  color: var(--danger-color);
+}
+
+.status-completed {
+  color: var(--success-color);
+}
+
+.status-pending {
+  color: var(--warning-color);
+}
+
+.assignment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.delete-button {
+  background: var(--danger-color);
+}
+
+.delete-button:hover {
+  background: #991b1b;
+}
+
+.empty-state {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--muted-color);
+  background: var(--surface-color);
+  border: 1px dashed var(--border-color);
+  border-radius: 0.75rem;
+}
+
+.site-footer {
+  padding: 1.5rem 0;
+  color: white;
+  text-align: center;
+  background: #111827;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .summary-grid,
+  form,
+  .filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .site-header {
+    padding: 2rem 0;
+  }
+}
