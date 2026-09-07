@@ -5,41 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Assignment Tracker</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
 </head>
+
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
   <header class="site-header">
     <div class="container">
       <h1>Student Assignment Tracker</h1>
       <p>Organize your coursework and stay ahead of your deadlines.</p>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#add-assignment">Add Assignment</a></li>
+          <li><a href="#filters">Filters</a></li>
+          <li><a href="#assignments">Assignments</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
-  <main class="container">
-    <section aria-labelledby="summary-heading">
+  <main id="main-content" class="container">
+    <section
+      id="dashboard"
+      class="summary-section"
+      aria-labelledby="summary-heading"
+    >
       <h2 id="summary-heading">Dashboard Summary</h2>
 
       <div class="summary-grid">
         <article class="summary-card">
           <h3>Pending</h3>
-          <p id="pending-count">0</p>
+          <p id="pending-count" aria-live="polite">0</p>
         </article>
 
         <article class="summary-card">
           <h3>Overdue</h3>
-          <p id="overdue-count">0</p>
+          <p id="overdue-count" aria-live="polite">0</p>
         </article>
 
         <article class="summary-card">
           <h3>Completed</h3>
-          <p id="completed-count">0</p>
+          <p id="completed-count" aria-live="polite">0</p>
         </article>
       </div>
     </section>
 
-    <p id="feedback" role="status" aria-live="polite"></p>
-
-    <section class="form-section" aria-labelledby="form-heading">
+    <section
+      id="add-assignment"
+      class="form-section"
+      aria-labelledby="form-heading"
+    >
       <h2 id="form-heading">Add Assignment</h2>
 
       <form id="assignment-form">
@@ -47,17 +64,34 @@
 
         <div class="form-group">
           <label for="title">Assignment Title</label>
-          <input type="text" id="title" name="title" required>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            autocomplete="off"
+            required
+          >
         </div>
 
         <div class="form-group">
           <label for="course">Course Name</label>
-          <input type="text" id="course" name="course" required>
+          <input
+            type="text"
+            id="course"
+            name="course"
+            autocomplete="off"
+            required
+          >
         </div>
 
         <div class="form-group">
           <label for="due-date">Due Date</label>
-          <input type="date" id="due-date" name="due-date" required>
+          <input
+            type="date"
+            id="due-date"
+            name="due-date"
+            required
+          >
         </div>
 
         <div class="form-group">
@@ -70,7 +104,10 @@
         </div>
 
         <div class="form-actions">
-          <button type="submit" id="submit-button">Save Assignment</button>
+          <button type="submit" id="submit-button">
+            Save Assignment
+          </button>
+
           <button
             type="button"
             id="cancel-button"
@@ -83,14 +120,18 @@
       </form>
     </section>
 
-    <section class="filter-section" aria-labelledby="filter-heading">
+    <section
+      id="filters"
+      class="filter-section"
+      aria-labelledby="filter-heading"
+    >
       <h2 id="filter-heading">Filter Assignments</h2>
 
       <div class="filter-grid">
         <div class="form-group">
           <label for="course-filter">Course</label>
           <select id="course-filter">
-            <option value="">All Courses</option>
+            <option value="all">All Courses</option>
           </select>
         </div>
 
@@ -106,14 +147,22 @@
       </div>
     </section>
 
-    <section aria-labelledby="assignments-heading">
+    <section
+      id="assignments"
+      class="assignments-section"
+      aria-labelledby="assignments-heading"
+    >
       <h2 id="assignments-heading">Assignments</h2>
 
-      <p id="empty-state" class="empty-state">
+      <p id="empty-state" class="empty-state" role="status">
         No assignments have been added yet. Add your first assignment above.
       </p>
 
-      <div id="assignment-list" class="assignment-list"></div>
+      <div
+        id="assignment-list"
+        class="assignment-list"
+        aria-live="polite"
+      ></div>
     </section>
   </main>
 
@@ -122,5 +171,7 @@
       <p>Student Assignment Tracker | Michael Currie</p>
     </div>
   </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

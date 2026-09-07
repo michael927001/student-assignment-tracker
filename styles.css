@@ -4,7 +4,7 @@
   --background-color: #f3f4f6;
   --surface-color: #ffffff;
   --text-color: #1f2937;
-  --muted-color: #4b5563;
+  --muted-color: #6b7280;
   --border-color: #d1d5db;
   --danger-color: #b91c1c;
   --success-color: #15803d;
@@ -15,8 +15,8 @@
   box-sizing: border-box;
 }
 
-[hidden] {
-  display: none !important;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -32,9 +32,28 @@ body {
   margin: 0 auto;
 }
 
+/* Keyboard accessibility */
+
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 1rem;
+  z-index: 1000;
+  padding: 0.75rem 1rem;
+  color: #ffffff;
+  background: #111827;
+  border-radius: 0.4rem;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Header and navigation */
+
 .site-header {
-  padding: 3rem 0;
-  color: white;
+  padding: 3rem 0 2rem;
+  color: #ffffff;
   background: var(--primary-color);
 }
 
@@ -46,12 +65,44 @@ body {
   margin: 0;
 }
 
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-list a {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: 0.4rem;
+}
+
+.nav-list a:hover {
+  text-decoration: underline;
+  background: var(--primary-dark);
+}
+
+.nav-list a:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* Main page structure */
+
 main {
   padding: 2rem 0;
 }
 
 section {
   margin-bottom: 2rem;
+  scroll-margin-top: 1rem;
 }
 
 h2 {
@@ -75,6 +126,8 @@ h2 {
   box-shadow: 0 2px 6px rgb(0 0 0 / 8%);
 }
 
+/* Dashboard cards */
+
 .summary-card h3,
 .summary-card p {
   margin: 0;
@@ -94,15 +147,7 @@ h2 {
   color: var(--success-color);
 }
 
-#feedback:empty {
-  display: none;
-}
-
-#feedback {
-  padding: 0.75rem 1rem;
-  background: #dbeafe;
-  border-radius: 0.4rem;
-}
+/* Forms and filters */
 
 form,
 .filter-grid {
@@ -135,15 +180,15 @@ input,
 select {
   width: 100%;
   min-width: 0;
-  border: 1px solid var(--border-color);
-  background: white;
   color: var(--text-color);
+  background: #ffffff;
+  border: 1px solid var(--border-color);
 }
 
 button {
-  border: 0;
-  color: white;
+  color: #ffffff;
   background: var(--primary-color);
+  border: 0;
   cursor: pointer;
 }
 
@@ -174,18 +219,21 @@ select:focus-visible {
   background: #d1d5db;
 }
 
+/* Assignment list */
+
 .assignment-list {
   display: grid;
   gap: 1rem;
 }
 
 .assignment-card {
-  border-left: 0.4rem solid var(--primary-color);
   overflow-wrap: anywhere;
+  border-left: 0.4rem solid var(--primary-color);
 }
 
 .assignment-card.completed {
   border-left-color: var(--success-color);
+  opacity: 0.8;
 }
 
 .assignment-card.overdue {
@@ -236,18 +284,22 @@ select:focus-visible {
   background: #991b1b;
 }
 
+/* Empty assignment message */
+
 .empty-state {
   padding: 1.5rem;
-  text-align: center;
   color: var(--muted-color);
+  text-align: center;
   background: var(--surface-color);
   border: 1px dashed var(--border-color);
   border-radius: 0.75rem;
 }
 
+/* Footer */
+
 .site-footer {
   padding: 1.5rem 0;
-  color: white;
+  color: #ffffff;
   text-align: center;
   background: #111827;
 }
@@ -256,11 +308,22 @@ select:focus-visible {
   margin: 0;
 }
 
+/* Mobile layout */
+
 @media (max-width: 700px) {
   .summary-grid,
   form,
   .filter-grid {
     grid-template-columns: 1fr;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .nav-list a {
+    width: 100%;
   }
 
   .form-actions {
