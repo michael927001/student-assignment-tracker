@@ -1,3 +1,8 @@
+import {
+  createAssignmentCard,
+  createCourseOption
+} from "./components.js";
+
 const STORAGE_KEY = "studentAssignmentTracker";
 
 const assignmentForm = document.querySelector("#assignment-form");
@@ -192,11 +197,10 @@ function updateCourseFilter() {
   const courses = [...new Set(assignments.map((item) => item.course))]
     .sort((first, second) => first.localeCompare(second));
 
-  courseFilter.replaceChildren(new Option("All Courses", ""));
-
-  courses.forEach((course) => {
-    courseFilter.add(new Option(course, course));
-  });
+  courseFilter.replaceChildren(
+    createCourseOption(""),
+    ...courses.map(createCourseOption)
+  );
 
   courseFilter.value = courses.includes(selectedCourse)
     ? selectedCourse
@@ -207,12 +211,25 @@ function renderAssignments() {
   const visibleAssignments = getFilteredAssignments();
 
   emptyState.hidden = visibleAssignments.length > 0;
+
   emptyState.textContent = assignments.length === 0
     ? "No assignments have been added yet. Add your first assignment above."
     : "No assignments match your selected filters.";
 
   assignmentList.innerHTML = visibleAssignments
-    .map(createAssignmentCard)
+    .map((assignment) => {
+      const status = assignment.completed
+        ? "Completed"
+        : isOverdue(assignment)
+          ? "Overdue"
+          : "Pending";
+
+      return createAssignmentCard(
+        assignment,
+        status,
+        formatDate(assignment.dueDate)
+      );
+    })
     .join("");
 }
 
@@ -234,67 +251,6 @@ function getFilteredAssignments() {
       return matchesCourse && matchesStatus;
     })
     .sort((first, second) => first.dueDate.localeCompare(second.dueDate));
-}
-
-function createAssignmentCard(assignment) {
-  const status = assignment.completed
-    ? "Completed"
-    : isOverdue(assignment)
-      ? "Overdue"
-      : "Pending";
-
-  const statusClass = status.toLowerCase();
-  const safeId = escapeHtml(assignment.id);
-
-  return `
-    <article class="assignment-card ${statusClass}">
-      <h3>${escapeHtml(assignment.title)}</h3>
-
-      <p class="assignment-meta">
-        <strong>Course:</strong> ${escapeHtml(assignment.course)}
-      </p>
-
-      <p class="assignment-meta">
-        <strong>Due:</strong> ${escapeHtml(formatDate(assignment.dueDate))}
-      </p>
-
-      <p class="assignment-meta">
-        <strong>Priority:</strong> ${escapeHtml(assignment.priority)}
-      </p>
-
-      <p class="assignment-status status-${statusClass}">
-        Status: ${status}
-      </p>
-
-      <div class="assignment-actions">
-        <button
-          type="button"
-          data-action="complete"
-          data-id="${safeId}"
-        >
-          ${assignment.completed ? "Mark Pending" : "Mark Complete"}
-        </button>
-
-        <button
-          type="button"
-          data-action="edit"
-          data-id="${safeId}"
-          class="secondary-button"
-        >
-          Edit
-        </button>
-
-        <button
-          type="button"
-          data-action="delete"
-          data-id="${safeId}"
-          class="delete-button"
-        >
-          Delete
-        </button>
-      </div>
-    </article>
-  `;
 }
 
 function isOverdue(assignment) {
@@ -368,8 +324,10 @@ function persistChanges(message) {
 
 function restoreActionFocus(assignmentId, action) {
   const buttons = [...assignmentList.querySelectorAll("button")];
+
   const button = buttons.find((item) => {
-    return item.dataset.id === assignmentId && item.dataset.action === action;
+    return item.dataset.id === assignmentId &&
+      item.dataset.action === action;
   });
 
   (button || statusFilter).focus();
@@ -381,13 +339,4 @@ function createId() {
   }
 
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
 }
