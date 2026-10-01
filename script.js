@@ -22,6 +22,7 @@ const pendingCount = document.querySelector("#pending-count");
 const overdueCount = document.querySelector("#overdue-count");
 const completedCount = document.querySelector("#completed-count");
 const feedback = document.querySelector("#feedback");
+const loadSampleButton = document.querySelector("#load-sample-button");
 
 let assignments = loadAssignments();
 
@@ -30,6 +31,7 @@ cancelButton.addEventListener("click", resetForm);
 courseFilter.addEventListener("change", render);
 statusFilter.addEventListener("change", render);
 assignmentList.addEventListener("click", handleAssignmentAction);
+loadSampleButton.addEventListener("click", loadSampleAssignments);
 
 [titleInput, courseInput].forEach((input) => {
   input.addEventListener("input", () => {
@@ -45,6 +47,53 @@ document.addEventListener("visibilitychange", () => {
     render();
   }
 });
+
+async function loadSampleAssignments() {
+  loadSampleButton.disabled = true;
+  feedback.textContent = "Loading sample assignments...";
+
+  try {
+    const response = await fetch("./sample-assignments.json", {
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}.`);
+    }
+
+    const sampleAssignments = await response.json();
+
+    if (
+      !Array.isArray(sampleAssignments) ||
+      !sampleAssignments.every(isValidAssignment)
+    ) {
+      throw new Error("The sample assignment data is not formatted correctly.");
+    }
+
+    const existingIds = new Set(
+      assignments.map((assignment) => assignment.id)
+    );
+
+    const newAssignments = sampleAssignments.filter(
+      (assignment) => !existingIds.has(assignment.id)
+    );
+
+    if (newAssignments.length === 0) {
+      feedback.textContent = "Sample assignments are already loaded.";
+      return;
+    }
+
+    assignments.push(...newAssignments);
+    persistChanges(`${newAssignments.length} sample assignments loaded.`);
+    render();
+  } catch (error) {
+    console.error("Unable to load sample assignments:", error);
+    feedback.textContent =
+      "Sample assignments could not be loaded. Please check the data file and try again.";
+  } finally {
+    loadSampleButton.disabled = false;
+  }
+}
 
 function handleFormSubmit(event) {
   event.preventDefault();

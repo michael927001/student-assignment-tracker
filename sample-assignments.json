@@ -1,0 +1,26 @@
+[
+  {
+    "id": "sample-001",
+    "title": "JavaScript API Exercise",
+    "course": "Frontend Development",
+    "dueDate": "2026-10-03",
+    "priority": "High",
+    "completed": false
+  },
+  {
+    "id": "sample-002",
+    "title": "Testing Plan Review",
+    "course": "Software Development Methodology",
+    "dueDate": "2026-10-08",
+    "priority": "Medium",
+    "completed": false
+  },
+  {
+    "id": "sample-003",
+    "title": "HTML Accessibility Practice",
+    "course": "Frontend Development",
+    "dueDate": "2026-09-30",
+    "priority": "Low",
+    "completed": true
+  }
+]
