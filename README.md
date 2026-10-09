@@ -2,79 +2,96 @@
 
 Created by Michael Currie.
 
-A frontend application that helps college students organize assignments and track deadlines.
+A responsive frontend application that helps college students organize assignments and track deadlines.
+
+## Live Application
+
+https://michael927001.github.io/student-assignment-tracker/
+
+## GitHub Repository
+
+https://github.com/michael927001/student-assignment-tracker
 
 ## Features
 
 - Add assignments with a title, course, due date, and priority
-- View assignments sorted by due date
 - Edit and delete assignments
-- Mark assignments as completed
+- Mark assignments as completed or pending
+- Sort assignments by due date
 - Filter assignments by course and status
-- Highlight overdue assignments
+- Highlight overdue, pending, and completed assignments
+- Display dashboard totals
+- Load sample assignments from a local JSON data source
+- Prevent duplicate sample data
 - Save assignments with localStorage
-- Use the application on desktop and mobile screens
+- Display loading, success, and error feedback
+- Support desktop and mobile screen sizes
 
 ## Technologies
 
 - HTML
 - CSS
 - JavaScript
+- JSON
+- Fetch API
 - localStorage
-- Visual Studio Code
 - Git and GitHub
+- GitHub Pages
 
-## Setup
+## Project Structure
 
-1. Clone or download this repository.
+- `index.html`: Semantic page structure, navigation, form, filters, and assignment list
+- `styles.css`: Colors, spacing, cards, buttons, focus styles, and responsive layout
+- `script.js`: Application state, validation, events, filtering, storage, and data loading
+- `components.js`: Reusable assignment-card, course-option, and button components
+- `sample-assignments.json`: Sample assignment data loaded with the Fetch API
+- `README.md`: Project instructions and documentation
+
+## Running the Project Locally
+
+1. Clone or download the repository.
 2. Open the project folder in Visual Studio Code.
-3. Open index.html in a web browser.
-4. Add assignments using the form.
+3. Install the Live Server extension if necessary.
+4. Right-click `index.html`.
+5. Select **Open with Live Server**.
+
+The project should be run through Live Server because it uses JavaScript modules and the Fetch API.
 
 ## Usage
 
-Enter an assignment title, course name, due date, and priority.
-Select Save Assignment to add it to the list.
+Enter an assignment title, course name, due date, and priority, and then select **Save Assignment**. Use the assignment buttons to complete, edit, or delete an assignment. Use the course and status filters to narrow the list.
 
-Use the assignment buttons to mark an assignment complete,
-edit its details, or delete it.
+Select **Load Sample Assignments** to retrieve sample data from the JSON file. Assignments are stored in the browser using localStorage and remain available after refreshing the page.
 
-Use the course and status filters to narrow the list.
+## Accessibility
 
-Pending includes all unfinished assignments, including overdue ones.
-Assignments become overdue the day after their due date.
+The application includes:
 
-## Data Storage
+- Semantic HTML sections
+- Visible form labels
+- Keyboard-accessible controls
+- A skip-navigation link
+- Visible focus indicators
+- Text labels in addition to status colors
+- Live status messages for application feedback
+- Responsive layouts for smaller screens
 
-Assignments are saved using the browser's localStorage.
-Data stays in the same browser and does not sync between devices.
-Clearing browser storage removes saved assignments.
+## Testing Summary
 
-## Page Outline
+The final application was tested for:
 
-1. Header with the application title and description
-2. Dashboard with pending, overdue, and completed counts
-3. Assignment form
-4. Course and status filters
-5. Assignment list with action buttons
-6. Empty-state message when no assignments are displayed
+- Adding, editing, completing, and deleting assignments
+- Required-field and whitespace validation
+- Course and status filtering
+- Dashboard count updates
+- Overdue deadline calculations
+- localStorage persistence after refreshing
+- JSON sample-data loading
+- Duplicate-data prevention
+- Data-loading error feedback
+- Keyboard navigation and focus behavior
+- Desktop and mobile responsiveness
+- Working navigation links
+- JavaScript and JSON syntax errors
 
-## Project Plan
-
-1. Set up the repository and initial files.
-2. Build the HTML structure.
-3. Style the interface and responsive layout.
-4. Implement assignment actions with JavaScript.
-5. Add filtering, deadline indicators, and localStorage.
-6. Test functionality, keyboard navigation, and mobile layouts.
-
-## Files
-
-- README.md: Project overview and instructions
-- index.html: Page structure and form
-- styles.css: Styling and responsive layout
-- script.js: Assignment actions, filtering, and storage
-
-## Repository
-
-- https://github.com/michael927001/student-assignment-tracker
+All major planned features worked correctly during final testing.
